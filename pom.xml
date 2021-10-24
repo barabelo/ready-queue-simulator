@@ -13,6 +13,14 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -28,14 +36,14 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>br.com.</mainClass>
+                                    <mainClass>br.study.app.Main</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
-                            <finalName>CSV-Filter</finalName>
-                            <appendAssemblyId>false</appendAssemblyId>
+                            <finalName>ready-queue-simulator</finalName>
+                            <appendAssemblyId>true</appendAssemblyId>
                         </configuration>
                     </execution>
                 </executions>
