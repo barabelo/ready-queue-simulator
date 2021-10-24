@@ -1,4 +1,4 @@
-package br.studyapp;
+package br.study.app;
 
 public class Main {
     public static void main(String[] args) {
