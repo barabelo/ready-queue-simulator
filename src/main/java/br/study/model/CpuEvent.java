@@ -1,11 +1,11 @@
 package br.study.model;
 
-public class CpuTask {
+public class CpuEvent {
     private Process process;
     private int startTime;
     private int finishTime;
 
-    public CpuTask(Process process, int startTime, int finishTime) {
+    public CpuEvent(Process process, int startTime, int finishTime) {
         this.process = process;
         this.startTime = startTime;
         this.finishTime = finishTime;
