@@ -34,4 +34,19 @@ public class Process {
     public void setBurstTime(int burstTime) {
         this.burstTime = burstTime;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Process process = (Process) o;
+
+        return pid == process.pid;
+    }
+
+    @Override
+    public int hashCode() {
+        return pid;
+    }
 }
