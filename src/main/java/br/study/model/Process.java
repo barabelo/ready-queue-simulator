@@ -1,9 +1,9 @@
 package br.study.model;
 
 public class Process {
-    int pid;
-    int arrivalTime;
-    int burstTime;
+    private int pid;
+    private int arrivalTime;
+    private int burstTime;
 
     public Process(int pid, int arrivalTime, int burstTime) {
         this.pid = pid;

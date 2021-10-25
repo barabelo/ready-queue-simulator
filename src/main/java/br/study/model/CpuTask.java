@@ -1,9 +1,9 @@
 package br.study.model;
 
 public class CpuTask {
-    Process process;
-    int startTime;
-    int finishTime;
+    private Process process;
+    private int startTime;
+    private int finishTime;
 
     public CpuTask(Process process, int startTime, int finishTime) {
         this.process = process;
