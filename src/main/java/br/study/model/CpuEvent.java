@@ -8,7 +8,10 @@ public class CpuEvent {
     private int end;
     private TimeUnit timeUnit;
 
-    public CpuEvent(Process process, int start, int end, TimeUnit timeUnit) {
+    public CpuEvent(Process process, int start, int end, TimeUnit timeUnit) throws InvalidTimePeriodException {
+        if (end < start) throw new InvalidTimePeriodException("A CPU event cannot end before it begins.");
+        if (end == start) throw new InvalidTimePeriodException("A CPU event cannot end at the same time it begins.");
+
         this.process = process;
         this.start = start;
         this.end = end;
