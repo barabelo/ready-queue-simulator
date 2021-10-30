@@ -16,14 +16,13 @@ public class FifoScheduler implements CpuScheduler {
         for (int i = 0; i < processes.size(); i++) {
             Process process = processes.get(i);
             Instant start;
-            Instant end;
             if (i == 0) start = process.getArrivalTime();
             else {
                 Instant lastCpuTaskEnd = cpuTasks.get(cpuTasks.size() - 1).getEnd();
                 if (process.getArrivalTime().isAfter(lastCpuTaskEnd)) start = process.getArrivalTime();
                 else start = lastCpuTaskEnd;
             }
-            end = start.plus(process.getBurstTime());
+            Instant end = start.plus(process.getBurstTime());
             try {
                 cpuTasks.add(new CpuTask(process, start, end));
             } catch (CpuEventException e) {
