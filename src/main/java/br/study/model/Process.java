@@ -4,6 +4,7 @@ import br.study.model.exception.InvalidDurationException;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Comparator;
 
 public class Process {
     private final int pid;
@@ -29,6 +30,13 @@ public class Process {
     public Duration getBurstTime() {
         return burstTime;
     }
+
+    public static Comparator<Process> procArrivalTimeComparator = new Comparator<Process>() {
+        @Override
+        public int compare(Process o1, Process o2) {
+            return o1.getArrivalTime().compareTo(o2.getArrivalTime());
+        }
+    };
 
     @Override
     public boolean equals(Object o) {
