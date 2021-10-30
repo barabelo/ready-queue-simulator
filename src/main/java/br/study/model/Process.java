@@ -1,5 +1,7 @@
 package br.study.model;
 
+import br.study.model.exception.InvalidDurationException;
+
 import java.time.Duration;
 import java.time.Instant;
 
@@ -8,7 +10,9 @@ public class Process {
     private final Instant arrivalTime;
     private final Duration burstTime;
 
-    public Process(int pid, Instant arrivalTime, Duration burstTime) {
+    public Process(int pid, Instant arrivalTime, Duration burstTime) throws InvalidDurationException {
+        if (burstTime.isNegative()) throw new InvalidDurationException("A process burst rate cannot be negative.");
+        if (burstTime.isZero()) throw new InvalidDurationException("A process burst rate cannot be null.");
         this.pid = pid;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
