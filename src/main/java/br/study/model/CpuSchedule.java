@@ -5,22 +5,22 @@ import br.study.model.exception.ScheduleException;
 import java.util.List;
 
 public class CpuSchedule {
-    private List<CpuEvent> cpuEvents;
+    private List<CpuTask> cpuTasks;
 
-    public List<CpuEvent> getCpuEvents() {
-        return cpuEvents;
+    public List<CpuTask> getCpuEvents() {
+        return cpuTasks;
     }
 
-    public void scheduleEvent(CpuEvent cpuEvent) throws ScheduleException {
-        if (alreadyScheduled(cpuEvent)) throw new ScheduleException("This CPU event has already been " +
+    public void scheduleEvent(CpuTask cpuTask) throws ScheduleException {
+        if (alreadyScheduled(cpuTask)) throw new ScheduleException("This CPU event has already been " +
                 "scheduled.");
-        if (hasConflict(cpuEvent)) throw new ScheduleException("There is already a CPU scheduled at this time" +
+        if (hasConflict(cpuTask)) throw new ScheduleException("There is already a CPU scheduled at this time" +
                 ".");
-        cpuEvents.add(cpuEvent);
+        cpuTasks.add(cpuTask);
     }
 
-    public boolean hasConflict(CpuEvent newEvent) {
-        for (CpuEvent event : cpuEvents) {
+    public boolean hasConflict(CpuTask newEvent) {
+        for (CpuTask event : cpuTasks) {
             if ((newEvent.getStart().isAfter(event.getStart()) && newEvent.getStart().isBefore(event.getEnd()))
                     || (newEvent.getEnd().isAfter(event.getStart()) && newEvent.getEnd().isBefore(event.getEnd())))
                 return true;
@@ -28,8 +28,8 @@ public class CpuSchedule {
         return false;
     }
 
-    public boolean alreadyScheduled(CpuEvent newEvent) {
-        for (CpuEvent event : cpuEvents) {
+    public boolean alreadyScheduled(CpuTask newEvent) {
+        for (CpuTask event : cpuTasks) {
             if (newEvent.equals(event)) return true;
         }
         return false;
