@@ -1,8 +1,7 @@
-package br.study.model.exception;
+package br.study.model;
 
-import br.study.model.CpuScheduler;
-import br.study.model.CpuTask;
-import br.study.model.Process;
+import br.study.model.exception.CpuEventException;
+import br.study.model.exception.ScheduleException;
 
 import java.time.Instant;
 import java.util.ArrayList;
