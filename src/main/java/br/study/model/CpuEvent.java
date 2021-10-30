@@ -12,6 +12,8 @@ public class CpuEvent {
     public CpuEvent(Process process, Instant start, Instant end) throws CpuEventException {
         if (end.isBefore(start)) throw new CpuEventException("A cpu event cannot end before it starts.");
         if (end.equals(start)) throw new CpuEventException("A cpu event cannot end at the same time it begins.");
+        if (end.compareTo(Instant.ofEpochMilli(0)) == 0) throw new CpuEventException("A cpu event cannot end at time " +
+                "0.");
         this.process = process;
         this.start = start;
         this.end = end;
