@@ -22,9 +22,8 @@ public class CpuSchedule {
     public boolean hasConflict(CpuEvent newEvent) {
         for (CpuEvent event : cpuEvents) {
             if ((newEvent.getStart().isAfter(event.getStart()) && newEvent.getStart().isBefore(event.getEnd()))
-                    || (newEvent.getEnd().isAfter(event.getStart()) && newEvent.getEnd().isBefore(event.getEnd()))) {
+                    || (newEvent.getEnd().isAfter(event.getStart()) && newEvent.getEnd().isBefore(event.getEnd())))
                 return true;
-            }
         }
         return false;
     }
