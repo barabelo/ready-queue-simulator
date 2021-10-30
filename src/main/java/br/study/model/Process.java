@@ -1,34 +1,29 @@
 package br.study.model;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+import java.time.Instant;
 
 public class Process {
     private final int pid;
-    private final int arrivalTime;
-    private final int burstTime;
-    private final TimeUnit timeUnit;
+    private final Instant arrivalTime;
+    private final Duration burstTime;
 
-    public Process(int pid, int arrivalTime, int burstTime, TimeUnit timeUnit) {
+    public Process(int pid, Instant arrivalTime, Duration burstTime) {
         this.pid = pid;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
-        this.timeUnit = timeUnit;
     }
 
     public int getPid() {
         return pid;
     }
 
-    public int getArrivalTime() {
+    public Instant getArrivalTime() {
         return arrivalTime;
     }
 
-    public int getBurstTime() {
+    public Duration getBurstTime() {
         return burstTime;
-    }
-
-    public TimeUnit getTimeUnit() {
-        return timeUnit;
     }
 
     @Override

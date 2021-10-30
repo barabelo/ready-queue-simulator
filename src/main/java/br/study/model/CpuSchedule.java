@@ -1,15 +1,9 @@
 package br.study.model;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class CpuSchedule {
     private List<CpuEvent> cpuEvents;
-    private TimeUnit timeUnit;
-
-    public CpuSchedule(TimeUnit timeUnit) {
-        this.timeUnit = timeUnit;
-    }
 
     public List<CpuEvent> getCpuEvents() {
         return cpuEvents;
@@ -22,21 +16,19 @@ public class CpuSchedule {
         cpuEvents.add(cpuEvent);
     }
 
-    private boolean scheduleConflict(CpuEvent newCpuEvent) {
-        for (CpuEvent cpuEvent : cpuEvents) {
-            long newCpuEventStart = timeUnit.convert(newCpuEvent.getStart(), newCpuEvent.getTimeUnit());
-            long newCpuEventEnd = timeUnit.convert(newCpuEvent.getEnd(), newCpuEvent.getTimeUnit());
-            long cpuEventStart = timeUnit.convert(cpuEvent.getStart(), cpuEvent.getTimeUnit());
-            long cpuEventEnd = timeUnit.convert(cpuEvent.getEnd(), cpuEvent.getTimeUnit());
-            if((newCpuEventStart >= cpuEventStart && newCpuEventStart < cpuEventEnd)
-                    || (newCpuEventEnd > cpuEventStart && newCpuEventEnd <= cpuEventEnd)) return true;
+    private boolean scheduleConflict(CpuEvent newEvent) {
+        for (CpuEvent event : cpuEvents) {
+            if ((newEvent.getStart().isAfter(event.getStart()) && newEvent.getStart().isBefore(event.getEnd()))
+                    || (newEvent.getEnd().isAfter(event.getStart()) && newEvent.getEnd().isBefore(event.getEnd()))) {
+                return true;
+            }
         }
         return false;
     }
 
-    private boolean alreadyScheduled(CpuEvent newCpuEvent) {
-        for (CpuEvent cpuEvent : cpuEvents) {
-            if (newCpuEvent.equals(cpuEvent)) return true;
+    private boolean alreadyScheduled(CpuEvent newEvent) {
+        for (CpuEvent event : cpuEvents) {
+            if (newEvent.equals(event)) return true;
         }
         return false;
     }
