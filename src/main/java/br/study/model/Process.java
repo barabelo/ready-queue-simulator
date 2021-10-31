@@ -12,6 +12,8 @@ public class Process {
     private final Duration burstTime;
 
     public Process(int pid, Instant arrivalTime, Duration burstTime) throws InvalidProcessException {
+        if (arrivalTime.isBefore(Instant.ofEpochMilli(0))) throw new InvalidProcessException("A process arrival time " +
+                "cannot be negative.");
         if (burstTime.isNegative()) throw new InvalidProcessException("A process burst rate cannot be negative.");
         if (burstTime.isZero()) throw new InvalidProcessException("A process burst rate cannot be null.");
         this.pid = pid;
