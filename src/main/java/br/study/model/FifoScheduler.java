@@ -1,6 +1,6 @@
 package br.study.model;
 
-import br.study.model.exception.CpuEventException;
+import br.study.model.exception.InvalidCpuTaskException;
 import br.study.model.exception.ScheduleException;
 
 import java.time.Instant;
@@ -25,7 +25,7 @@ public class FifoScheduler implements CpuScheduler {
             Instant end = start.plus(process.getBurstTime());
             try {
                 cpuTasks.add(new CpuTask(process, start, end));
-            } catch (CpuEventException e) {
+            } catch (InvalidCpuTaskException e) {
                 throw new ScheduleException("The provided process list cannot be scheduled by this algorithm.", e);
             }
         }
