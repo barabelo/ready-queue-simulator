@@ -12,6 +12,7 @@ import java.util.List;
 public class TestFifoScheduler {
 
     private final List<Process> contiguousProcessList = new ArrayList<>();
+    private final List<Process> nonContiguousProcessList = new ArrayList<>();
     private final List<CpuTask> expectedScheduleOfProcessesOnContiguousProcessList = new ArrayList<>();
 
     @Before
@@ -38,5 +39,20 @@ public class TestFifoScheduler {
             Assert.assertEquals(processesScheduledByTheAlgorithm.get(i),
                     expectedScheduleOfProcessesOnContiguousProcessList.get(i));
         }
+    }
+
+    @Before
+    public void initializeNonContiguousProcessList() {
+        Process process1 = new Process(1, Instant.ofEpochMilli(0), Duration.ofMillis(24));
+        Process process2 = new Process(2, Instant.ofEpochMilli(30), Duration.ofMillis(3));
+        Process process3 = new Process(3, Instant.ofEpochMilli(2), Duration.ofMillis(3));
+        nonContiguousProcessList.add(process1);
+        nonContiguousProcessList.add(process2);
+        nonContiguousProcessList.add(process3);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testScheduleNonContiguousProcessList() {
+        new FifoScheduler().schedule(nonContiguousProcessList);
     }
 }
