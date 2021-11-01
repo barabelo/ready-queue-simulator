@@ -4,8 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FifoScheduler implements CpuScheduler {
-    @Override
+public class FifoScheduler {
     public List<CpuTask> schedule(List<Process> processList) {
         processList.sort(Process.procArrivalTimeComparator);
         List<CpuTask> cpuTasks = new ArrayList<>();
