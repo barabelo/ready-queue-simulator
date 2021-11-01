@@ -31,5 +31,23 @@ public class CpuTask {
         return end;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        CpuTask cpuTask = (CpuTask) o;
+
+        if (!process.equals(cpuTask.process)) return false;
+        if (!start.equals(cpuTask.start)) return false;
+        return end.equals(cpuTask.end);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = process.hashCode();
+        result = 31 * result + start.hashCode();
+        result = 31 * result + end.hashCode();
+        return result;
+    }
 }
