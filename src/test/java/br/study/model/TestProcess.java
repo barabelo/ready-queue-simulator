@@ -15,18 +15,23 @@ public class TestProcess {
     int lastIndexOfTheList;
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateProcessWithNegativeArrivalTime() {
-        Process processWithNegativeArrivalTime = new Process(1, Instant.ofEpochMilli(-1), Duration.ofMillis(1));
+    public void testCreateProcessWithNegativePid() {
+        new Process(-1, Instant.ofEpochMilli(0), Duration.ofMillis(1));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateProcessWithNegativeDuration() {
-        Process processWithNegativeDuration = new Process(1, Instant.ofEpochMilli(1), Duration.ofMillis(-1));
+    public void testCreateProcessWithNegativeArrivalTime() {
+        new Process(1, Instant.ofEpochMilli(-1), Duration.ofMillis(1));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testCreateProcessWithNullDuration() {
-        Process processWithNegativeDuration = new Process(1, Instant.ofEpochMilli(1), Duration.ZERO);
+        new Process(1, Instant.ofEpochMilli(1), Duration.ZERO);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreateProcessWithNegativeDuration() {
+        new Process(1, Instant.ofEpochMilli(1), Duration.ofMillis(-1));
     }
 
     @Before
