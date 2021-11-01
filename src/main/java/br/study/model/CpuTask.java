@@ -1,7 +1,5 @@
 package br.study.model;
 
-import br.study.model.exception.InvalidCpuTaskException;
-
 import java.time.Instant;
 
 public class CpuTask {
@@ -9,11 +7,12 @@ public class CpuTask {
     private final Instant start;
     private final Instant end;
 
-    public CpuTask(Process process, Instant start, Instant end) throws InvalidCpuTaskException {
-        if (end.isBefore(start)) throw new InvalidCpuTaskException("A cpu event cannot end before it starts.");
-        if (end.equals(start)) throw new InvalidCpuTaskException("A cpu event cannot end at the same time it begins.");
-        if (end.compareTo(Instant.ofEpochMilli(0)) == 0) throw new InvalidCpuTaskException("A cpu event cannot end at time " +
-                "0.");
+    public CpuTask(Process process, Instant start, Instant end) {
+        if (start.isBefore(Instant.EPOCH)) throw new IllegalArgumentException("A cpu task cannot start at an Instant " +
+                "before Instant.EPOCH.");
+        if (end.equals(Instant.EPOCH)) throw new IllegalArgumentException("A cpu task cannot ent at an Instant equal " +
+                "to Instant.EPOCH");
+        if (end.isBefore(start)) throw new IllegalArgumentException("A CPU task cannot end before it begins.");
         this.process = process;
         this.start = start;
         this.end = end;
@@ -30,4 +29,6 @@ public class CpuTask {
     public Instant getEnd() {
         return end;
     }
+
+
 }

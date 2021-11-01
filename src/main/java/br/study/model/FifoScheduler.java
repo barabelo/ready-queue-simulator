@@ -1,15 +1,12 @@
 package br.study.model;
 
-import br.study.model.exception.InvalidCpuTaskException;
-import br.study.model.exception.ScheduleException;
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FifoScheduler implements CpuScheduler {
     @Override
-    public List<CpuTask> schedule(List<Process> processes) throws ScheduleException {
+    public List<CpuTask> schedule(List<Process> processes) {
         processes.sort(Process.procArrivalTimeComparator);
         List<CpuTask> cpuTasks = new ArrayList<>();
 
@@ -23,11 +20,7 @@ public class FifoScheduler implements CpuScheduler {
                 else start = lastCpuTaskEnd;
             }
             Instant end = start.plus(process.getBurstTime());
-            try {
-                cpuTasks.add(new CpuTask(process, start, end));
-            } catch (InvalidCpuTaskException e) {
-                throw new ScheduleException("The provided process list cannot be scheduled by this algorithm.", e);
-            }
+            cpuTasks.add(new CpuTask(process, start, end));
         }
 
         return cpuTasks;

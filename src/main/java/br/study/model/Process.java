@@ -1,7 +1,5 @@
 package br.study.model;
 
-import br.study.model.exception.InvalidProcessException;
-
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Comparator;
@@ -11,11 +9,12 @@ public class Process {
     private final Instant arrivalTime;
     private final Duration burstTime;
 
-    public Process(int pid, Instant arrivalTime, Duration burstTime) throws InvalidProcessException {
-        if (arrivalTime.isBefore(Instant.ofEpochMilli(0))) throw new InvalidProcessException("A process arrival time " +
-                "cannot be negative.");
-        if (burstTime.isNegative()) throw new InvalidProcessException("A process burst rate cannot be negative.");
-        if (burstTime.isZero()) throw new InvalidProcessException("A process burst rate cannot be null.");
+    public Process(int pid, Instant arrivalTime, Duration burstTime) {
+        if (pid < 0) throw new IllegalArgumentException("A process cannot have a negative pid.");
+        if (arrivalTime.isBefore(Instant.EPOCH)) throw new IllegalArgumentException("A process cannot arrive at an " +
+                "Instant before Instant.EPOCH.");
+        if (burstTime.isZero()) throw new IllegalArgumentException("A process cannot have a null duration.");
+        if (burstTime.isNegative()) throw new IllegalArgumentException("A process cannot have a negative duration.");
         this.pid = pid;
         this.arrivalTime = arrivalTime;
         this.burstTime = burstTime;
