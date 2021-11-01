@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Comparator;
 
 public class Process {
+    public static Comparator<Process> procArrivalTimeComparator = Comparator.comparing(Process::getArrivalTime);
     private final int pid;
     private final Instant arrivalTime;
     private final Duration burstTime;
@@ -31,8 +32,6 @@ public class Process {
     public Duration getBurstTime() {
         return burstTime;
     }
-
-    public static Comparator<Process> procArrivalTimeComparator = Comparator.comparing(Process::getArrivalTime);
 
     @Override
     public boolean equals(Object o) {
