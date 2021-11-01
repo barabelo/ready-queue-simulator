@@ -10,8 +10,9 @@ public class CpuTask {
     public CpuTask(Process process, Instant start, Instant end) {
         if (start.isBefore(Instant.EPOCH)) throw new IllegalArgumentException("A cpu task cannot start at an Instant " +
                 "before Instant.EPOCH.");
-        if (end.equals(Instant.EPOCH)) throw new IllegalArgumentException("A cpu task cannot ent at an Instant equal " +
+        if (end.equals(Instant.EPOCH)) throw new IllegalArgumentException("A cpu task cannot end at an Instant equal " +
                 "to Instant.EPOCH");
+        if (end.equals(start)) throw new IllegalArgumentException("A CPU task cannot end at the same time it begins.");
         if (end.isBefore(start)) throw new IllegalArgumentException("A CPU task cannot end before it begins.");
         this.process = process;
         this.start = start;
