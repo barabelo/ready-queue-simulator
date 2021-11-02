@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestFifoScheduler {
+public class TestRoundRobinScheduler {
 
     private final List<Process> contiguousProcessList = new ArrayList<>();
     private final List<CpuTask> expectedScheduleOfProcessesOnContiguousProcessList = new ArrayList<>();
@@ -23,17 +23,20 @@ public class TestFifoScheduler {
         contiguousProcessList.add(process2);
         contiguousProcessList.add(process3);
 
-        CpuTask cpuTask1 = new CpuTask(process1, Instant.ofEpochMilli(0), Instant.ofEpochMilli(24));
-        CpuTask cpuTask2 = new CpuTask(process2, Instant.ofEpochMilli(24), Instant.ofEpochMilli(27));
-        CpuTask cpuTask3 = new CpuTask(process3, Instant.ofEpochMilli(27), Instant.ofEpochMilli(30));
+        CpuTask cpuTask1 = new CpuTask(process1, Instant.ofEpochMilli(0), Instant.ofEpochMilli(4));
+        CpuTask cpuTask2 = new CpuTask(process2, Instant.ofEpochMilli(4), Instant.ofEpochMilli(7));
+        CpuTask cpuTask3 = new CpuTask(process3, Instant.ofEpochMilli(7), Instant.ofEpochMilli(10));
+        CpuTask cpuTask4 = new CpuTask(process1, Instant.ofEpochMilli(10), Instant.ofEpochMilli(30));
         expectedScheduleOfProcessesOnContiguousProcessList.add(cpuTask1);
         expectedScheduleOfProcessesOnContiguousProcessList.add(cpuTask2);
         expectedScheduleOfProcessesOnContiguousProcessList.add(cpuTask3);
+        expectedScheduleOfProcessesOnContiguousProcessList.add(cpuTask4);
     }
 
     @Test
-    public void testScheduleContiguousProcessList() {
-        List<CpuTask> processesScheduledByTheAlgorithm = new FifoScheduler().schedule(contiguousProcessList);
+    public void schedule() {
+        List<CpuTask> processesScheduledByTheAlgorithm =
+                new RoundRobinScheduler(Duration.ofMillis(4)).schedule(contiguousProcessList);
         for (int i = 0; i < processesScheduledByTheAlgorithm.size(); i++) {
             Assert.assertEquals(processesScheduledByTheAlgorithm.get(i),
                     expectedScheduleOfProcessesOnContiguousProcessList.get(i));

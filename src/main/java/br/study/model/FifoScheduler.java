@@ -16,8 +16,7 @@ public class FifoScheduler implements CpuScheduler {
             if (i == 0) start = process.getArrivalTime();
             else {
                 Instant lastCpuTaskEnd = cpuTasks.get(cpuTasks.size() - 1).getEnd();
-                if (process.getArrivalTime().isAfter(lastCpuTaskEnd)) throw new IllegalArgumentException("The " +
-                        "algorithm cannot schedule the provided process list because it is not contiguous.");
+                if (process.getArrivalTime().isAfter(lastCpuTaskEnd)) start = process.getArrivalTime();
                 else start = lastCpuTaskEnd;
             }
             Instant end = start.plus(process.getBurstTime());
